@@ -12,7 +12,7 @@
       const canvas = document.getElementById("canvas");
       const ctx = canvas.getContext("2d");
       const canvasBg = "#292929";
-      const greedSize = 30;
+      const greedSize = 80;
 
       canvas.width = window.innerWidth - 20;
       canvas.height = window.innerHeight - 20;
@@ -32,12 +32,13 @@
 
       ctx.beginPath();
       ctx.strokeStyle = "#3d3d3d";
+      ctx.font = `${greedSize / 3}px Arial`;
 
       for (let i = 0; i < canvas.width; i += greedSize) {
         ctx.moveTo(i, 0);
         ctx.lineTo(i, canvas.height);
 
-        ctx.font = "10px Arial";
+        // ctx.font = "10px Arial";
         ctx.fillStyle = "#fff";
         ctx.fillText(i - xAxis, i + 2, yAxis + 10);
       }
@@ -47,9 +48,9 @@
         ctx.moveTo(0, i);
         ctx.lineTo(canvas.width, i);
 
-        ctx.font = "10px Arial";
+        // ctx.font = "10px Arial";
         ctx.fillStyle = "#fff";
-        ctx.fillText(i - yAxis, xAxis + 2, i + 10);
+        ctx.fillText(yAxis - i, xAxis + 2, i + 10);
       }
       ctx.stroke();
       ctx.closePath();
@@ -63,7 +64,16 @@
       ctx.moveTo(0, yAxis);
       ctx.lineTo(canvas.width, yAxis);
       ctx.stroke();
+      ctx.closePath();
+
+      ctx.beginPath();
+      ctx.strokeStyle = "#ff0000";
+
+      for (let i = 0; i < canvas.width; i++) {
+        ctx.lineTo(i, yAxis - Math.sin((i - xAxis) / 100) * 30);
+      }
+
+      ctx.stroke();
     </script>
   </body>
-  <script src="main.js"></script>
 </html>
