@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="main.css" />
+    <title>Canvas</title>
+  </head>
+  <body>
+    <canvas class="canvas" id="canvas"></canvas>
+    <script>
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+      const canvasBg = "#292929";
+      const greedSize = 30;
+
+      canvas.width = window.innerWidth - 20;
+      canvas.height = window.innerHeight - 20;
+
+      window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth - 20;
+        canvas.height = window.innerHeight - 20;
+        ctx.fillStyle = canvasBg;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      });
+
+      ctx.fillStyle = canvasBg;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const xAxis = Math.round(canvas.width / greedSize / 2) * greedSize;
+      const yAxis = Math.round(canvas.height / greedSize / 2) * greedSize;
+
+      ctx.beginPath();
+      ctx.strokeStyle = "#3d3d3d";
+
+      for (let i = 0; i < canvas.width; i += greedSize) {
+        ctx.moveTo(i, 0);
+        ctx.lineTo(i, canvas.height);
+
+        ctx.font = "10px Arial";
+        ctx.fillStyle = "#fff";
+        ctx.fillText(i - xAxis, i + 2, yAxis + 10);
+      }
+      ctx.stroke();
+
+      for (let i = 0; i < canvas.height; i += greedSize) {
+        ctx.moveTo(0, i);
+        ctx.lineTo(canvas.width, i);
+
+        ctx.font = "10px Arial";
+        ctx.fillStyle = "#fff";
+        ctx.fillText(i - yAxis, xAxis + 2, i + 10);
+      }
+      ctx.stroke();
+      ctx.closePath();
+
+      ctx.beginPath();
+      ctx.strokeStyle = "#000";
+
+      ctx.moveTo(xAxis, 0);
+      ctx.lineTo(xAxis, canvas.height);
+
+      ctx.moveTo(0, yAxis);
+      ctx.lineTo(canvas.width, yAxis);
+      ctx.stroke();
+    </script>
+  </body>
+  <script src="main.js"></script>
+</html>
